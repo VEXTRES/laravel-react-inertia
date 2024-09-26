@@ -26,6 +26,7 @@ function Home({posts}) {
                     <p className=' font-medium'>
                         {post.body}
                     </p>
+                    <Link className=' text-link' href={`posts/${post.id}`}> Read more...</Link>
                 </div>
             ))}
 
@@ -42,6 +43,7 @@ function Home({posts}) {
                         className=' p-1 mx-1 text-slate-300 '
                      ></span>
                 ))}
+                
             </div>
         </div>
 
