@@ -1,8 +1,11 @@
 import React from 'react'
 import Layout from '../Layouts/Layout'
+import {useRoute} from '../../../vendor/tightenco/ziggy'
 import { Link } from '@inertiajs/react'
 
 function Home({posts}) {
+
+    const route=useRoute();
 
     console.log(posts.links)
 
@@ -26,9 +29,14 @@ function Home({posts}) {
                     <p className=' font-medium'>
                         {post.body}
                     </p>
+                    {/* <Link className=' text-link' href={`posts/${post.id}`}> Read more...</Link> */}
+                    <Link className=' text-link' href={route('posts.show',post)}> Read more...</Link>
+
                 </div>
             ))}
 
+
+            {/* Barra de navegacion */}
             <div className=' py-12 px-4'>
                 {posts.links.map( link=>(
                     link.url?
@@ -42,6 +50,7 @@ function Home({posts}) {
                         className=' p-1 mx-1 text-slate-300 '
                      ></span>
                 ))}
+
             </div>
         </div>
 
