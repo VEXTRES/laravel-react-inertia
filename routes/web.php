@@ -8,6 +8,5 @@ use Inertia\Inertia;
 //     return Inertia::render('Home',['name' => 'uriel']);
 // });
 Route::resource('posts',PostController::class)
-->except('show')
-;
+->except('show');
 
