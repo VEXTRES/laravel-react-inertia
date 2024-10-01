@@ -1,13 +1,18 @@
 import React from 'react'
 import Layout from '../Layouts/Layout'
 import {useRoute} from '../../../vendor/tightenco/ziggy'
-import { Link } from '@inertiajs/react'
+import { Link, useForm } from '@inertiajs/react'
 
 function Home({posts}) {
 
     const route=useRoute();
 
-    console.log(posts.links)
+    const { delete: destroy}=useForm();
+    const submit = (e, id) => {
+        e.preventDefault();
+        destroy(`posts/${id}`);
+        // destroy(route('posts.destroy',id));
+      };
 
   return (
     <div>
@@ -31,7 +36,11 @@ function Home({posts}) {
                     </p>
                     {/* <Link className=' text-link' href={`posts/${post.id}`}> Read more...</Link> */}
                     <Link className=' text-link' href={route('posts.show',post)}> Read more...</Link>
-
+                    <form  onSubmit={(e) => submit(e, post.id)}>
+                        <button type='submit' className='bg-red-400 text-white p-2 rounded-sm'>
+                            Delete
+                        </button>
+                    </form>
                 </div>
             ))}
 
