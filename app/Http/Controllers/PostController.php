@@ -50,7 +50,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return inertia('Edit',['post'=>$post]);
     }
 
     /**
@@ -58,7 +58,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'body' =>'required',
+        ]);
+        $post->update($request->all());
+        return redirect()->route('posts.index')->with('message','el post fue ACTUALIZADO');
     }
 
     /**

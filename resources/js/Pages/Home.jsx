@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../Layouts/Layout'
 import {useRoute} from '../../../vendor/tightenco/ziggy'
-import { Link, useForm, usePage } from '@inertiajs/react'
+import { Head, Link, useForm, usePage } from '@inertiajs/react'
 
 function Home({posts}) {
 
     const route=useRoute();
     const { flash } = usePage().props
     const [flashMsg,setFlashMsg]=useState()
+    const {component}=usePage()
 
-    const { delete: destroy}=useForm();
-    const submit = (e, id) => {
+    const { delete: destroy,}=useForm();
+    const borrar = (e, id) => {
         e.preventDefault();
         destroy(`posts/${id}`);
         // destroy(route('posts.destroy',id));
@@ -30,6 +31,8 @@ function Home({posts}) {
     }, [flash.message]);
   return (
     <div>
+        <Head title={component} />
+
         <h1 className='title'> Hello usersss  </h1>
 
             {flashMsg && <div className=' text-xl text-red-400 font-bold p-3 rounded-md'>{flash.message}</div>}
@@ -53,11 +56,16 @@ function Home({posts}) {
                     </p>
                     {/* <Link className=' text-link' href={`posts/${post.id}`}> Read more...</Link> */}
                     <Link className=' text-link' href={route('posts.show',post)}> Read more...</Link>
-                    <form  onSubmit={(e) => submit(e, post.id)}>
-                        <button type='submit' className='bg-red-400 text-white p-2 rounded-sm'>
-                            Delete
-                        </button>
-                    </form>
+                    <div className=' relative flex space-x-2'>
+                        <form  onSubmit={(e) => borrar(e, post.id)}>
+                            <button type='submit' className='bg-red-400 text-white p-2 rounded-sm '>
+                                Delete
+                            </button>
+                        </form>
+                            <Link href={`/posts/${post.id}/edit`} className='bg-green-400 text-white p-2 rounded-sm'>
+                                Editar
+                            </Link>
+                    </div>
                 </div>
             ))}
 
