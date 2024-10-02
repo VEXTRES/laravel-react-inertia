@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../Layouts/Layout'
 import {useRoute} from '../../../vendor/tightenco/ziggy'
-import { Link, useForm } from '@inertiajs/react'
+import { Link, useForm, usePage } from '@inertiajs/react'
 
 function Home({posts}) {
 
     const route=useRoute();
+    const { flash } = usePage().props
+    const [flashMsg,setFlashMsg]=useState()
 
     const { delete: destroy}=useForm();
     const submit = (e, id) => {
@@ -14,9 +16,24 @@ function Home({posts}) {
         // destroy(route('posts.destroy',id));
       };
 
+      useEffect(() => {
+        if (flash.message) {
+            setFlashMsg(flash.message);
+            const timeout = setTimeout(() => {
+                setFlashMsg(null);
+                flash.message =null
+
+            }, 3000);
+            // return () => clearTimeout(timeout);
+            // Limpiar el timeout si el componente se desmonta o si cambia el flash.message
+        }
+    }, [flash.message]);
   return (
     <div>
         <h1 className='title'> Hello usersss  </h1>
+
+            {flashMsg && <div className=' text-xl text-red-400 font-bold p-3 rounded-md'>{flash.message}</div>}
+
 
         <div>
             {posts.data.map( post=>(
