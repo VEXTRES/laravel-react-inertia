@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlimentoController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -9,3 +10,5 @@ use Inertia\Inertia;
 // });
 Route::resource('posts',PostController::class);
 
+// Route::get('/alimento/{id}', [AlimentoController::class, 'mostrarAlimento']);
+Route::get('/alimentos', [AlimentoController::class,'index']);

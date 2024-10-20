@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -16,6 +17,7 @@ class PostController extends Controller
         $posts=Post::latest()->paginate(10);
         return inertia('Home',['posts' => $posts]);
     }
+
 
     /**
      * Show the form for creating a new resource.
